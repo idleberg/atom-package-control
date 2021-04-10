@@ -65,9 +65,11 @@ async function apm(action: string, packageName: string): Promise<void> {
   try {
     await execa(apmPath, [action, packageName]);
   } catch (err) {
-    const errorMessage = `${wording(action).noun} failed: ${err.shortMessage}`;
-    Logger.error(errorMessage);
-    atom.notifications.addError(errorMessage);
+    Logger.error(`${wording(action).noun} failed: ${err.shortMessage}`);
+    atom.notifications.addError(`**Package Control**: ${wording(action).noun} failed`, {
+      detail: err.shortMessage,
+      dismissable: true
+    });
     return;
   }
 
