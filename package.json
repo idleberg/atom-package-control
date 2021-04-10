@@ -61,9 +61,8 @@
     "cross-fetch": "^3.1.4",
     "date-fns": "^2.20.1",
     "idb-keyval": "^5.0.4",
-    "make-fetch-happen": "^8.0.14",
     "numbro": "^2.3.2",
-    "open": "^7.4.2",
+    "open": "^8.0.5",
     "pako": "^2.0.3"
   },
   "devDependencies": {
