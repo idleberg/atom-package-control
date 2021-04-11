@@ -11,7 +11,6 @@
     "lint:code": "eslint --ignore-path .gitignore --no-error-on-unmatched-pattern ./src/**/*.ts",
     "lint:styles": "echo \"Nothing to lint\"",
     "lint": "npm-run-all --parallel lint:*",
-    "postinstall": "husky install",
     "prepublishOnly": "npm run build",
     "start": "rollup --watch --config",
     "test": "npm run lint"
@@ -84,7 +83,7 @@
     "eslint": "^7.23.0",
     "eslint-config-eslint": "^7.0.0",
     "eslint-plugin-json": "^2.1.2",
-    "husky": "^6.0.0",
+    "husky": ">=4.3 <5",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
     "rollup": "^2.44.0",
@@ -94,6 +93,11 @@
     "stylelint": "^13.12.0",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.ts": "eslint --cache --fix"
