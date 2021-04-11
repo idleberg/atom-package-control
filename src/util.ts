@@ -129,14 +129,14 @@ function wording(action: string): PackageControl.Verbs {
   }
 }
 
-async function openPackagesWebsite(): Promise<void> {
-  Logger.log('Opening https://atom.io/packages');
-  await open('https://atom.io/packages');
+async function openWebsite(type: string): Promise<void> {
+  Logger.log(`Opening https://atom.io/${type}`);
+  await open(`https://atom.io/${type}`);
 }
 
 export {
   createList,
-  openPackagesWebsite,
+  openWebsite,
   sortByName,
   sortByCount
 };

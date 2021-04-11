@@ -1,6 +1,6 @@
 import { CompositeDisposable } from "atom";
 import { configSchema } from "./config";
-import { createList, openPackagesWebsite } from "./util";
+import { createList, openWebsite } from "./util";
 import API from "./api";
 import Browse from './browse';
 import Logger from "./log";
@@ -43,7 +43,12 @@ const PackageControl = {
       }),
       atom.commands.add("atom-workspace", {
         'package-control:discover-packages': async () => {
-          await openPackagesWebsite();
+          await openWebsite('packages');
+        }
+      }),
+      atom.commands.add("atom-workspace", {
+        'package-control:discover-themes': async () => {
+          await openWebsite('themes');
         }
       })
     );

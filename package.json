@@ -32,6 +32,7 @@
     "atom-workspace": [
       "package-control:disable-package",
       "package-control:discover-packages",
+      "package-control:discover-themes",
       "package-control:enable-package",
       "package-control:install-package",
       "package-control:list-packages",
