@@ -1,6 +1,6 @@
 {
   "name": "package-control",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Manage Atom packages from the command palette",
   "private": false,
   "main": "./lib/index",
