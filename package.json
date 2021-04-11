@@ -51,7 +51,7 @@
   "package-deps": [
     {
       "name": "browse",
-      "minimumVersion": "3.1.0"
+      "minimumVersion": "3.3.0"
     }
   ],
   "dependencies": {
