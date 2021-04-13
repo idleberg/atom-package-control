@@ -86,7 +86,7 @@ async function updateAll(): Promise<void> {
   Logger.log(`${wording(action).continous} all packages`);
 
   try {
-    await execa(apmPath, ['update']);
+    await execa(apmPath, ['update', '--no-confirm']);
   } catch (err) {
     Logger.error(`${wording(action).continous} all packages failed: ${err.shortMessage}`);
     atom.notifications.addError(`**Package Control**: ${wording(action).continous} all packages failed`, {
