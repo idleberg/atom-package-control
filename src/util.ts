@@ -32,7 +32,7 @@ async function createList(action: string): Promise<void> {
       break;
 
     case 'update':
-      selectionPackages = await getOutdatedPackages();
+      selectionPackages = await getOutdatedPackages(allPackages);
       break;
 
 
@@ -213,7 +213,7 @@ async function openWebsite(type: string): Promise<void> {
   await open(`https://atom.io/${type}`);
 }
 
-async function getOutdatedPackages(): Promise<string[]> {
+async function getOutdatedPackages(allPackages: unknown[]): Promise<string[]> {
   Logger.log('Retrieving outdated packages')
 
   const apmPath: string = atom.packages.getApmPath();
@@ -228,8 +228,13 @@ async function getOutdatedPackages(): Promise<string[]> {
   return JSON
     .parse(response.stdout)
     .map(({name, version, latestVersion}) => {
+      const meta: unknown = allPackages.filter(item => item['name'] === name)[0];
+
       return {
+        description: meta['description'],
+        downloads: meta['downloads'],
         name,
+        stars: meta['stars'],
         version: `${version} &#8594; ${latestVersion}`
       };
     }) || [];
