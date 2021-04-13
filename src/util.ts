@@ -12,7 +12,7 @@ async function createList(action: string): Promise<void> {
 
   if (allPackages === undefined) return;
 
-  let selectionPackages;
+  let selectionPackages, outdatedPackages;
   const installedPackages = atom.packages.getAvailablePackageNames();
   const enabledPackages = atom.packages.getLoadedPackages().map(item => item.name);
   const disabledPackages = installedPackages.filter(item => !enabledPackages.includes(item));
@@ -30,12 +30,31 @@ async function createList(action: string): Promise<void> {
       selectionPackages = allPackages.filter(item => installedPackages.includes(item['name']) && enabledPackages.includes(item['name']));
       break;
 
+    case 'update':
+      selectionPackages = await getOutdatedPackages();
+      break;
+
+
     default:
      selectionPackages = allPackages.filter(item => installedPackages.includes(item['name']));
      break;
   }
 
-  const selection = await selectListView(selectionPackages);
+  if (!selectionPackages.length) {
+    Logger.log(`No packages to ${action}`);
+    atom.notifications.addInfo(`**Package Control**: No packages to ${action}`);
+
+    return;
+  }
+
+  let selection;
+
+  try {
+    selection = await selectListView(selectionPackages);
+  } catch (err) {
+    Logger.log(`Cancelled selection`);
+    return;
+  }
 
   if (selection === undefined) return;
 
@@ -47,6 +66,10 @@ async function createList(action: string): Promise<void> {
       await apm(action, selection);
       break;
 
+    case 'update':
+      await apm(action, selection, ['--compatible', '--no-confirm']);
+      break;
+
     case 'list':
       Browse.reveal(selection);
       break;
@@ -56,14 +79,14 @@ async function createList(action: string): Promise<void> {
   }
 }
 
-async function apm(action: string, packageName: string): Promise<void> {
+async function apm(action: string, packageName: string, args = []): Promise<void> {
   const startTime = new Date().getTime();
   const apmPath: string = atom.packages.getApmPath();
 
   Logger.log(`${wording(action).continous} ${packageName}`);
 
   try {
-    await execa(apmPath, [action, packageName]);
+    await execa(apmPath, [action, packageName, ...args]);
   } catch (err) {
     Logger.error(`${wording(action).noun} failed: ${err.shortMessage}`);
     atom.notifications.addError(`**Package Control**: ${wording(action).noun} failed`, {
@@ -150,6 +173,13 @@ function wording(action: string): PackageControl.Verbs {
         perfect: 'Listed'
       };
 
+    case 'update':
+      return {
+        continous: 'Updating',
+        noun: 'Update',
+        perfect: 'Updated'
+      };
+
     default:
       throw Error(`Unsupported action: ${action}`);
   }
@@ -158,6 +188,29 @@ function wording(action: string): PackageControl.Verbs {
 async function openWebsite(type: string): Promise<void> {
   Logger.log(`Opening https://atom.io/${type}`);
   await open(`https://atom.io/${type}`);
+}
+
+async function getOutdatedPackages(): Promise<string[]> {
+  Logger.log('Retrieving outdated packages')
+
+  const apmPath: string = atom.packages.getApmPath();
+  let response;
+
+  try {
+    response = await execa(apmPath, ['update', '--compatible', '--json', '--list']);
+  } catch (err) {
+    throw Error(err.message);
+  }
+
+  return JSON
+    .parse(response.stdout)
+    .map(({name, version, latestVersion}) => {
+      return {
+        name,
+        version,
+        latestVersion,
+      };
+    }) || [];
 }
 
 export {

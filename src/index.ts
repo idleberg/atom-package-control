@@ -52,7 +52,12 @@ const PackageControl = {
         }
       }),
       atom.commands.add("atom-workspace", {
-        'package-control:update-all-packatges': async () => {
+        'package-control:update-package': async () => {
+          await createList('update');
+        }
+      }),
+      atom.commands.add("atom-workspace", {
+        'package-control:update-all-packages': async () => {
           await updateAll();
         }
       })

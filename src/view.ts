@@ -15,9 +15,9 @@ async function selectListView(items: string[]): Promise<string | undefined> {
   const currentFocus = document.activeElement as HTMLElement | void;
 
   try {
-    return await new Promise<string>(resolve => {
+    return await new Promise<string>((resolve, reject) => {
       const select = new SelectList({
-        didCancelSelection: () => resolve('cancelled'),
+        didCancelSelection: () => reject('cancelled'),
         didConfirmSelection: (item: PackageControl.Metadata) => resolve(item.name),
         elementForItem: (item: PackageControl.Metadata) => {
           const li = document.createElement('li');
