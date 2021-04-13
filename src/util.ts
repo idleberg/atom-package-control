@@ -57,8 +57,8 @@ async function createList(action: string): Promise<void> {
 }
 
 async function apm(action: string, packageName: string): Promise<void> {
-  const apmPath: string = atom.packages.getApmPath();
   const startTime = new Date().getTime();
+  const apmPath: string = atom.packages.getApmPath();
 
   Logger.log(`${wording(action).continous} ${packageName}`);
 
@@ -70,6 +70,7 @@ async function apm(action: string, packageName: string): Promise<void> {
       detail: err.shortMessage,
       dismissable: true
     });
+
     return;
   }
 
@@ -80,6 +81,7 @@ async function apm(action: string, packageName: string): Promise<void> {
 }
 
 async function updateAll(): Promise<void> {
+  const startTime = new Date().getTime();
   const action = 'update';
   const apmPath: string = atom.packages.getApmPath();
 
@@ -93,8 +95,14 @@ async function updateAll(): Promise<void> {
       detail: err.shortMessage,
       dismissable: true
     });
+
     return;
   }
+
+  const endTime = new Date().getTime();
+  const timeDiff: number = endTime - startTime;
+
+  Logger.log(`${wording(action).perfect} all packages in ${timeDiff / 1000} seconds`);
 }
 
 function sortByName(items: PackageControl.Metadata, sortBy: string): PackageControl.Metadata {
