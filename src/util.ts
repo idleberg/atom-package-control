@@ -12,7 +12,7 @@ async function createList(action: string): Promise<void> {
 
   if (allPackages === undefined) return;
 
-  let selectionPackages, outdatedPackages;
+  let selectionPackages;
   const installedPackages = atom.packages.getAvailablePackageNames();
   const enabledPackages = atom.packages.getLoadedPackages().map(item => item.name);
   const disabledPackages = installedPackages.filter(item => !enabledPackages.includes(item));
