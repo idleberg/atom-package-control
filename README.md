@@ -6,8 +6,6 @@
 [![CircleCI](https://flat.badgen.net/circleci/github/idleberg/atom-package-control)](https://circleci.com/gh/idleberg/atom-package-control)
 [![David](https://flat.badgen.net/david/dep/idleberg/atom-package-control)](https://david-dm.org/idleberg/atom-package-control)
 
-# Description
-
 Manage Atom packages from the command palette
 
 ## Installation
