@@ -36,7 +36,8 @@
       "package-control:enable-package",
       "package-control:install-package",
       "package-control:list-packages",
-      "package-control:remove-package"
+      "package-control:remove-package",
+      "package-control:update-all-packages"
     ]
   },
   "activationHooks": [

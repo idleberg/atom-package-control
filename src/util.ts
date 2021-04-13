@@ -79,6 +79,24 @@ async function apm(action: string, packageName: string): Promise<void> {
   Logger.log(`${wording(action).perfect} ${packageName} in ${timeDiff / 1000} seconds`);
 }
 
+async function updateAll() {
+  const action = 'update';
+  const apmPath: string = atom.packages.getApmPath();
+
+  Logger.log(`${wording(action).continous} all packages`);
+
+  try {
+    await execa(apmPath, ['update']);
+  } catch (err) {
+    Logger.error(`${wording(action).noun} all packages failed: ${err.shortMessage}`);
+    atom.notifications.addError(`**Package Control**: ${wording(action).noun} all packages failed`, {
+      detail: err.shortMessage,
+      dismissable: true
+    });
+    return;
+  }
+}
+
 function sortByName(items: PackageControl.Metadata, sortBy: string): PackageControl.Metadata {
   return items.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
 }
@@ -138,5 +156,6 @@ export {
   createList,
   openWebsite,
   sortByName,
-  sortByCount
+  sortByCount,
+  updateAll
 };
