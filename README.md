@@ -62,6 +62,7 @@ This packages exposes several commands to the [command palette](https://flight-m
 - *Package Control: List Packages*
 - *Package Control: Discover Packages*
 - *Package Control: Discover Themes*
+- *Package Control: Satisfy Dependencies*
 - *Package Control: Update Package*
 - *Package Control: Update All Packages*
 

@@ -62,7 +62,14 @@ const configSchema = {
       }
     ],
     order: 4
-  }
+  },
+  confirmSatisfyingDependencies: {
+    title: 'Confirm Satisfying Dependencies',
+    description: 'Display confirmation dialog when satisfying package dependencies',
+    type: 'boolean',
+    default: true,
+    order: 5
+  },
 };
 
 function getConfig(key = ''): unknown {

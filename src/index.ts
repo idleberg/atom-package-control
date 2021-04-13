@@ -1,6 +1,6 @@
 import { CompositeDisposable } from "atom";
 import { configSchema } from "./config";
-import { createList, openWebsite,updateAll } from "./util";
+import { createList, openWebsite, satisfyDependencies, updateAll } from "./util";
 import API from "./api";
 import Browse from './browse';
 import Logger from "./log";
@@ -60,7 +60,12 @@ const PackageControl = {
         'package-control:update-all-packages': async () => {
           await updateAll();
         }
-      })
+      }),
+      atom.commands.add("atom-workspace", {
+        'package-control:satisfy-dependencies': async () => {
+          await satisfyDependencies();
+        }
+      }),
     );
   },
 

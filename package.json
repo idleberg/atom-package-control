@@ -37,8 +37,9 @@
       "package-control:install-package",
       "package-control:list-packages",
       "package-control:remove-package",
-      "package-control:update-package",
-      "package-control:update-all-packages"
+      "package-control:satisfy-dependencies",
+      "package-control:update-all-packages",
+      "package-control:update-package"
     ]
   },
   "activationHooks": [
@@ -58,11 +59,11 @@
     }
   ],
   "dependencies": {
-    "atom-package-deps": "^7.2.3",
     "atom-select-list": "^0.8.0",
     "cross-fetch": "^3.1.4",
     "date-fns": "^2.20.1",
     "idb-keyval": "^5.0.4",
+    "log-symbols": "^4.1.0",
     "numbro": "^2.3.2",
     "open": "^8.0.5",
     "pako": "^2.0.3"

@@ -1,3 +1,5 @@
+import { getConfig } from './config';
+import { install as installDependencies } from 'atom-package-deps';
 import { selectListView } from './view';
 import API from './api';
 import Browse from './browse';
@@ -5,7 +7,6 @@ import execa from 'execa';
 import Logger from './log';
 import open from "open";
 import type PackageControl from '../types';
-
 
 async function createList(action: string): Promise<void> {
   const allPackages: PackageControl.Metadata[] = await API.getPackages(action);
@@ -128,6 +129,21 @@ async function updateAll(): Promise<void> {
   Logger.log(`${wording(action).perfect} all packages in ${timeDiff / 1000} seconds`);
 }
 
+async function satisfyDependencies(): Promise<void> {
+  const startTime = new Date().getTime();
+  const action = 'satisfy';
+  const enabledPackages = atom.packages.getLoadedPackages().map(item => item.name);
+
+  Logger.log(`${wording(action).continous} all packages dependencies`);
+
+  await (Promise as any).allSettled(enabledPackages.map(async enabledPackage => await installDependencies(enabledPackage, !getConfig('confirmSatisfyingDependencies'))));
+
+  const endTime = new Date().getTime();
+  const timeDiff: number = endTime - startTime;
+
+  Logger.log(`${wording(action).perfect} all packages in ${timeDiff / 1000} seconds`);
+}
+
 function sortByName(items: PackageControl.Metadata, sortBy: string): PackageControl.Metadata {
   return items.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
 }
@@ -173,6 +189,13 @@ function wording(action: string): PackageControl.Verbs {
         perfect: 'Listed'
       };
 
+    case 'satisfy':
+      return {
+        continous: 'Satisfying',
+        noun: 'Satisfying',
+        perfect: 'Satisfied'
+      };
+
     case 'update':
       return {
         continous: 'Updating',
@@ -216,6 +239,7 @@ async function getOutdatedPackages(): Promise<string[]> {
 export {
   createList,
   openWebsite,
+  satisfyDependencies,
   sortByName,
   sortByCount,
   updateAll
