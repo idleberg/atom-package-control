@@ -79,7 +79,7 @@ async function apm(action: string, packageName: string): Promise<void> {
   Logger.log(`${wording(action).perfect} ${packageName} in ${timeDiff / 1000} seconds`);
 }
 
-async function updateAll() {
+async function updateAll(): Promise<void> {
   const action = 'update';
   const apmPath: string = atom.packages.getApmPath();
 
@@ -88,8 +88,8 @@ async function updateAll() {
   try {
     await execa(apmPath, ['update']);
   } catch (err) {
-    Logger.error(`${wording(action).noun} all packages failed: ${err.shortMessage}`);
-    atom.notifications.addError(`**Package Control**: ${wording(action).noun} all packages failed`, {
+    Logger.error(`${wording(action).continous} all packages failed: ${err.shortMessage}`);
+    atom.notifications.addError(`**Package Control**: ${wording(action).continous} all packages failed`, {
       detail: err.shortMessage,
       dismissable: true
     });
