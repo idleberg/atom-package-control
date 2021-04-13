@@ -230,8 +230,7 @@ async function getOutdatedPackages(): Promise<string[]> {
     .map(({name, version, latestVersion}) => {
       return {
         name,
-        version,
-        latestVersion,
+        version: `${version} &#8594; ${latestVersion}`
       };
     }) || [];
 }
