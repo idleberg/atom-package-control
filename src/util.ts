@@ -6,6 +6,7 @@ import Browse from './browse';
 import execa from 'execa';
 import Logger from './log';
 import open from "open";
+import Signal from './busy-signal';
 import type PackageControl from '../types';
 
 async function createList(action: string): Promise<void> {
@@ -83,18 +84,23 @@ async function createList(action: string): Promise<void> {
 async function apm(action: string, packageName: string, args = []): Promise<void> {
   const startTime = new Date().getTime();
   const apmPath: string = atom.packages.getApmPath();
+  const signalMessage = `Package Control is ${wording(action).continous.toLowerCase()} the ${packageName} package`;
 
-  Logger.log(`${wording(action).continous} ${packageName}`);
+  Logger.log(`${wording(action).continous} ${packageName} package`);
+  Signal.add(signalMessage);
 
   try {
     await execa(apmPath, [action, packageName, ...args]);
   } catch (err) {
     Logger.error(`${wording(action).noun} failed: ${err.shortMessage}`);
+    Signal.add(`${wording(action).noun} failed: ${err.shortMessage}`);
+
     atom.notifications.addError(`**Package Control**: ${wording(action).noun} failed`, {
       detail: err.shortMessage,
       dismissable: true
     });
 
+    Signal.remove(signalMessage);
     return;
   }
 
@@ -102,14 +108,17 @@ async function apm(action: string, packageName: string, args = []): Promise<void
   const timeDiff: number = endTime - startTime;
 
   Logger.log(`${wording(action).perfect} ${packageName} in ${timeDiff / 1000} seconds`);
+  Signal.remove(signalMessage);
 }
 
 async function updateAll(): Promise<void> {
+  const signalMessage = 'Package Control updating all packages';
   const startTime = new Date().getTime();
   const action = 'update';
   const apmPath: string = atom.packages.getApmPath();
 
   Logger.log(`${wording(action).continous} all packages`);
+  Signal.add(signalMessage);
 
   try {
     await execa(apmPath, ['update', '--no-confirm']);
@@ -120,6 +129,7 @@ async function updateAll(): Promise<void> {
       dismissable: true
     });
 
+    Signal.remove(signalMessage);
     return;
   }
 
@@ -127,14 +137,17 @@ async function updateAll(): Promise<void> {
   const timeDiff: number = endTime - startTime;
 
   Logger.log(`${wording(action).perfect} all packages in ${timeDiff / 1000} seconds`);
+  Signal.remove(signalMessage);
 }
 
 async function satisfyDependencies(): Promise<void> {
+  const signalMessage = 'Package Control is satisfying all package dependencies';
   const startTime = new Date().getTime();
   const action = 'satisfy';
   const enabledPackages = atom.packages.getLoadedPackages().map(item => item.name);
 
   Logger.log(`${wording(action).continous} all packages dependencies`);
+  Signal.add(signalMessage);
 
   await (Promise as any).allSettled(enabledPackages.map(async enabledPackage => await installDependencies(enabledPackage, !getConfig('confirmSatisfyingDependencies'))));
 
@@ -142,6 +155,7 @@ async function satisfyDependencies(): Promise<void> {
   const timeDiff: number = endTime - startTime;
 
   Logger.log(`${wording(action).perfect} all packages in ${timeDiff / 1000} seconds`);
+  Signal.remove(signalMessage);
 }
 
 function sortByName(items: PackageControl.Metadata, sortBy: string): PackageControl.Metadata {
@@ -214,7 +228,9 @@ async function openWebsite(type: string): Promise<void> {
 }
 
 async function getOutdatedPackages(allPackages: unknown[]): Promise<string[]> {
-  Logger.log('Retrieving outdated packages')
+  const signalMessage = 'Package Control is retrieving outdated packages';
+  Logger.log('Retrieving outdated packages');
+  Signal.add(signalMessage);
 
   const apmPath: string = atom.packages.getApmPath();
   let response;
@@ -223,6 +239,8 @@ async function getOutdatedPackages(allPackages: unknown[]): Promise<string[]> {
     response = await execa(apmPath, ['update', '--compatible', '--json', '--list']);
   } catch (err) {
     throw Error(err.message);
+  } finally {
+    Signal.remove(signalMessage);
   }
 
   return JSON

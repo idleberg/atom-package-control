@@ -4,6 +4,7 @@ import { createList, openWebsite, satisfyDependencies, updateAll } from "./util"
 import API from "./api";
 import Browse from './browse';
 import Logger from "./log";
+import Signal from './busy-signal';
 
 const PackageControl = {
   config: configSchema,
@@ -79,6 +80,12 @@ const PackageControl = {
     Logger.log('Consuming Browse service');
 
     Browse.consumer(browse);
+  },
+
+  consumeSignal(registry: unknown): void {
+    Logger.log('Consuming Busy Signal service');
+
+    Signal.consumer(registry);
   }
 };
 
