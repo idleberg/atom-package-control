@@ -50,6 +50,11 @@
       "versions": {
         "1.0.0": "consumeBrowse"
       }
+    },
+    "busy-signal": {
+      "versions": {
+        "1.0.0": "consumeSignal"
+      }
     }
   },
   "package-deps": [
