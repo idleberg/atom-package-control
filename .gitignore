@@ -9,4 +9,5 @@ yarn-error.log
 .rollup.cache/
 .stylelintcache
 .yo-rc.json
+*.map
 tsconfig.tsbuildinfo
