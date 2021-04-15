@@ -149,6 +149,7 @@ async function satisfyDependencies(): Promise<void> {
   Logger.log(`${wording(action).continous} all packages dependencies`);
   Signal.add(signalMessage);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (Promise as any).allSettled(enabledPackages.map(async enabledPackage => await installDependencies(enabledPackage, !getConfig('confirmSatisfyingDependencies'))));
 
   const endTime = new Date().getTime();
