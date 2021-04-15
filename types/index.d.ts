@@ -5,6 +5,7 @@ declare namespace PackageControl {
     version: string;
     downloads: number;
     stars: number;
+    theme?: string;
   }
 
   interface Verbs {
