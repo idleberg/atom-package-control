@@ -103,6 +103,7 @@ const configSchema = {
   },
   ui: {
     title: 'UI Customization',
+    description: 'Basic customization options to change the colours of various text elements and to toggle icons',
     type: 'object',
     order: 6,
     properties: {
