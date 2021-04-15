@@ -1,0 +1,63 @@
+{
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "Package Control",
+          "submenu": [
+            {
+              "label": "Install Package",
+              "command": "package-control:install-package"
+            },
+            {
+              "label": "Remove Package",
+              "command": "package-control:remove-package"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "label": "Enable Package",
+              "command": "package-control:enable-package"
+            },
+            {
+              "label": "Disable Package",
+              "command": "package-control:disable-package"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "label": "Update Package",
+              "command": "package-control:update-package"
+            },
+            {
+              "label": "Update All Package",
+              "command": "package-control:update-all-packages"
+            },
+            {
+              "label": "Satisfy Package",
+              "command": "package-control:satisfy-dependencies"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "label": "List Packages",
+              "command": "package-control:list-packages"
+            },
+            {
+              "label": "Discover Package",
+              "command": "package-control:discover-packages"
+            },
+            {
+              "label": "Discover Themes",
+              "command": "package-control:discover-themes"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
