@@ -32,15 +32,52 @@ async function selectListView(items: string[]): Promise<string | undefined> {
             ? `${numbro(item.stars).format(numbroOptions)}`
             : '';
 
-          li.innerHTML = `
-            <div class="package-control block">
-              <div class="pull-right">
+          const icon = item.theme
+            ? item.theme === 'ui'
+              ? 'browser'
+              : 'paintcan'
+            : 'code';
+
+          const ui = getConfig('ui');
+
+          const packageTextStyle = ui['packageTextStyle'] !== 'normal'
+            ? `text-${ui['packageTextStyle']}`
+            : '';
+
+          const versionTextStyle = ui['versionTextStyle'] !== 'normal'
+            ? `text-${ui['versionTextStyle']}`
+            : '';
+
+          const statsTextStyle = ui['statsTextStyle'] !== 'normal'
+            ? `text-${ui['statsTextStyle']}`
+            : '';
+
+          const descriptionTextStyle = ui['descriptionTextStyle'] !== 'normal'
+            ? `text-${ui['descriptionTextStyle']}`
+            : '';
+
+          const packageTypeIcon = ui['showPackageTypeIcon']
+            ? `icon icon-${icon}`
+            : '';
+
+          const showPackageStats = ui['showPackageStats']
+            ? `
+              <div class="pull-right ${statsTextStyle}">
                 <span class="icon icon-cloud-download">${downloads}</span>
                 <span class="icon icon-star">${stars}</span>
               </div>
+            `
+            : '';
 
-              <strong>${item.name}</strong> ${version}
-              <div class="text-subtle truncate-text">${item.description || ''}</div>
+          li.innerHTML = `
+            <div class="package-control block">
+              ${showPackageStats}
+
+              <span class="${packageTypeIcon}">
+                <strong class="${packageTextStyle}">${item.name}</strong>
+                <span class="${versionTextStyle}">${version}</span>
+                <div class="truncate-text ${descriptionTextStyle}">${item.description || ''}</div>
+              </span>
             </div>
           `
 

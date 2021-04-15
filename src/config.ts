@@ -6,6 +6,37 @@ const INTERVAL = {
   one_week: 10080
 };
 
+const textStyles = [
+  {
+    value: 'normal',
+    description: 'Normal'
+  },
+  {
+    value: 'subtle',
+    description: 'Subtle'
+  },
+  {
+    value: 'highlight',
+    description: 'Highlighted'
+  },
+  {
+    value: 'info',
+    description: 'Blue'
+  },
+  {
+    value: 'success',
+    description: 'Green'
+  },
+  {
+    value: 'warning',
+    description: 'Yellow'
+  },
+  {
+    value: 'error',
+    description: 'Red'
+  }
+];
+
 const configSchema = {
   updateInterval: {
     title: 'Update Interval',
@@ -70,6 +101,59 @@ const configSchema = {
     default: true,
     order: 5
   },
+  ui: {
+    title: 'UI Customization',
+    type: 'object',
+    order: 6,
+    properties: {
+      packageTextStyle: {
+        title: 'Package Text Style',
+        description: '',
+        type: 'string',
+        default: 'normal',
+        enum: textStyles,
+        order: 1
+      },
+      descriptionTextStyle: {
+        title: 'Description Text Style',
+        description: '',
+        type: 'string',
+        default: 'normal',
+        enum: textStyles,
+        order: 2
+      },
+      versionTextStyle: {
+        title: 'Version Text Style',
+        description: '',
+        type: 'string',
+        default: 'subtle',
+        enum: textStyles,
+        order: 3
+      },
+      statsTextStyle: {
+        title: 'Stats Text Style',
+        description: '',
+        type: 'string',
+        default: 'normal',
+        enum: textStyles,
+        order: 4
+      },
+      showPackageTypeIcon: {
+        title: 'Show Package Type Icon',
+        description: '',
+        type: 'boolean',
+        default: true,
+        order: 5
+      },
+      showPackageStats: {
+        title: 'Show Package Stats',
+        description: '',
+        type: 'boolean',
+        default: true,
+        order: 6
+      }
+    }
+  }
 };
 
 function getConfig(key = ''): unknown {

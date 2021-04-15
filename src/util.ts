@@ -231,10 +231,11 @@ async function getOutdatedPackages(allPackages: unknown[]): Promise<string[]> {
       const meta: unknown = allPackages.filter(item => item['name'] === name)[0];
 
       return {
-        description: meta['description'],
-        downloads: meta['downloads'],
+        description: meta['description'] || '',
+        downloads: meta['downloads'] || 0,
         name,
-        stars: meta['stars'],
+        stars: meta['stars'] || 0,
+        theme: meta['theme'] || undefined,
         version: `${version} &#8594; ${latestVersion}`
       };
     }) || [];
