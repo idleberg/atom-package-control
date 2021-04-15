@@ -5,7 +5,7 @@ export default {
   busySignal: null,
   serviceName: 'busy-signal',
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line
   consumer(registry: any): Disposable {
     this.busySignal = registry.create();
 
