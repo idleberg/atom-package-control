@@ -30,7 +30,6 @@ $ cd $Env:USERPROFILE\.atom\packages
 ```cmd
 :: Command Prompt
 $ cd %USERPROFILE%\.atom\packages
-
 ```
 
 **Linux & macOS**
