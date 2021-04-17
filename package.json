@@ -8,6 +8,7 @@
     "analyze": "source-map-explorer lib/**/*.js",
     "build": "rollup --config",
     "dev": "npm run start",
+    "format": "prettierx --write ./src",
     "lint:code": "eslint --ignore-path .gitignore --no-error-on-unmatched-pattern ./src/**/*.ts",
     "lint:styles": "echo \"Nothing to lint\"",
     "lint": "npm-run-all --parallel lint:*",
@@ -115,6 +116,6 @@
   "lint-staged": {
     "*.ts": "eslint --cache --fix",
     "*.json": "jsonlint --quiet",
-    "*.{ts,md,yml}": "prettierx --write"
+    "*.{md,yml}": "prettierx --write"
   }
 }
