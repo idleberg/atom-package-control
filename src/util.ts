@@ -44,7 +44,6 @@ async function createList(action: string): Promise<void> {
       selectionPackages = await getOutdatedPackages(allPackages);
       break;
 
-
     default:
      selectionPackages = allPackages.filter(item => installedPackages.includes(item['name']));
      break;
