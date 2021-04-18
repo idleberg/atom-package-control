@@ -41,6 +41,14 @@
               "command": "package-control:satisfy-dependencies"
             },
             {
+              "label": "Install Starred Package",
+              "command": "package-control:install-starred-package"
+            },
+            {
+              "label": "Install All Starred Packages",
+              "command": "package-control:install-all-starred-packages"
+            },
+            {
               "type": "separator"
             },
             {

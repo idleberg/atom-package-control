@@ -1,6 +1,6 @@
 import { CompositeDisposable } from "atom";
 import { configSchema } from "./config";
-import { createList, openWebsite, satisfyDependencies, updateAll } from "./util";
+import { createList, installAllStars, openWebsite, satisfyDependencies, updateAll } from "./util";
 import API from "./api";
 import Browse from './browse';
 import Logger from "./log";
@@ -50,6 +50,16 @@ const PackageControl = {
       atom.commands.add("atom-workspace", {
         'package-control:discover-themes': async () => {
           await openWebsite('themes');
+        }
+      }),
+      atom.commands.add("atom-workspace", {
+        'package-control:install-starred-package': async () => {
+          await createList('stars');
+        }
+      }),
+      atom.commands.add("atom-workspace", {
+        'package-control:install-all-starred-packages': async () => {
+          await installAllStars();
         }
       }),
       atom.commands.add("atom-workspace", {

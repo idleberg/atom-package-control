@@ -14,10 +14,14 @@ async function createList(action: string): Promise<void> {
 
   if (allPackages === undefined) return;
 
-  let selectionPackages;
+  let selectionPackages, starredPackages;
   const installedPackages = atom.packages.getAvailablePackageNames();
   const enabledPackages = atom.packages.getLoadedPackages().map(item => item.name);
   const disabledPackages = installedPackages.filter(item => !enabledPackages.includes(item));
+
+  if (action === 'stars') {
+    starredPackages = await getStarredPackages();
+  }
 
   switch (action) {
     case 'install':
@@ -32,6 +36,10 @@ async function createList(action: string): Promise<void> {
       selectionPackages = allPackages.filter(item => installedPackages.includes(item['name']) && enabledPackages.includes(item['name']));
       break;
 
+    case 'stars':
+      selectionPackages = allPackages.filter(item => !installedPackages.includes(item['name']) && starredPackages.includes(item['name']));
+      break;
+
     case 'update':
       selectionPackages = await getOutdatedPackages(allPackages);
       break;
@@ -43,8 +51,10 @@ async function createList(action: string): Promise<void> {
   }
 
   if (!selectionPackages.length) {
-    Logger.log(`No packages to ${action}`);
-    atom.notifications.addInfo(`**Package Control**: No packages to ${action}`);
+    const verb = action === 'stars' ? 'install' : action;
+
+    Logger.log(`No packages to ${verb}`);
+    atom.notifications.addInfo(`**Package Control**: No packages to ${verb}`);
 
     return;
   }
@@ -66,6 +76,10 @@ async function createList(action: string): Promise<void> {
     case 'disable':
     case 'enable':
       await apm(action, selection);
+      break;
+
+    case 'stars':
+      apm('install', selection);
       break;
 
     case 'update':
@@ -140,6 +154,35 @@ async function updateAll(): Promise<void> {
   Signal.remove(signalMessage);
 }
 
+async function installAllStars(): Promise<void> {
+  const signalMessage = 'Package Control is installing all starred packages';
+  const startTime = new Date().getTime();
+  const action = 'install';
+  const apmPath: string = atom.packages.getApmPath();
+
+  Logger.log(`${wording(action).continous} all packages`);
+  Signal.add(signalMessage);
+
+  try {
+    await execa(apmPath, ['stars', '--install']);
+  } catch (err) {
+    Logger.error(`${wording(action).continous} all starred packages failed: ${err.shortMessage}`);
+    atom.notifications.addError(`**Package Control**: ${wording(action).continous} all starred packages failed`, {
+      detail: err.shortMessage,
+      dismissable: true
+    });
+
+    Signal.remove(signalMessage);
+    return;
+  }
+
+  const endTime = new Date().getTime();
+  const timeDiff: number = endTime - startTime;
+
+  Logger.log(`${wording(action).perfect} all starred packages in ${timeDiff / 1000} seconds`);
+  Signal.remove(signalMessage);
+}
+
 async function satisfyDependencies(): Promise<void> {
   const signalMessage = 'Package Control is satisfying all package dependencies';
   const startTime = new Date().getTime();
@@ -170,6 +213,7 @@ function sortByCount(items: PackageControl.Metadata, sortBy: string): PackageCon
 function wording(action: string): PackageControl.Verbs {
   switch (action) {
     case 'install':
+    case 'stars':
       return {
         continous: 'Installing',
         noun: 'Installation',
@@ -260,8 +304,28 @@ async function getOutdatedPackages(allPackages: unknown[]): Promise<string[]> {
     }) || [];
 }
 
+async function getStarredPackages(): Promise<string[]> {
+  const signalMessage = 'Package Control is retrieving starred packages';
+  Logger.log('Retrieving starred packages');
+  Signal.add(signalMessage);
+
+  const apmPath: string = atom.packages.getApmPath();
+  let response;
+
+  try {
+    response = await execa(apmPath, ['stars', '--json']);
+  } catch (err) {
+    throw Error(err.message);
+  } finally {
+    Signal.remove(signalMessage);
+  }
+
+  return JSON.parse(response.stdout).map(item => item['name']) || [];
+}
+
 export {
   createList,
+  installAllStars,
   openWebsite,
   satisfyDependencies,
   sortByName,

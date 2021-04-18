@@ -36,6 +36,8 @@
       "package-control:discover-themes",
       "package-control:enable-package",
       "package-control:install-package",
+      "package-control:install-starred-package",
+      "package-control:install-all-starred-packages",
       "package-control:list-packages",
       "package-control:remove-package",
       "package-control:satisfy-dependencies",
