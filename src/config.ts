@@ -101,11 +101,18 @@ const configSchema = {
     default: true,
     order: 5
   },
+  githubUser: {
+    title: 'GitHub User Name',
+    description: 'Optional: A user name used for the two *Install Starred Package* commands',
+    type: 'string',
+    default: '',
+    order: 6
+  },
   ui: {
     title: 'UI Customization',
     description: 'Basic customization options to change the colours of various text elements and to toggle icons',
     type: 'object',
-    order: 6,
+    order: 7,
     properties: {
       packageTextStyle: {
         title: 'Package Text Style',

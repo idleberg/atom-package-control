@@ -163,7 +163,7 @@ async function installAllStars(): Promise<void> {
   Signal.add(signalMessage);
 
   try {
-    await execa(apmPath, ['stars', '--install']);
+    await execa(apmPath, ['stars', '--install', ...appendGithubUser()]);
   } catch (err) {
     Logger.error(`${wording(action).continous} all starred packages failed: ${err.shortMessage}`);
     atom.notifications.addError(`**Package Control**: ${wording(action).continous} all starred packages failed`, {
@@ -312,7 +312,7 @@ async function getStarredPackages(): Promise<string[]> {
   let response;
 
   try {
-    response = await execa(apmPath, ['stars', '--json']);
+    response = await execa(apmPath, ['stars', '--json', ...appendGithubUser()]);
   } catch (err) {
     throw Error(err.message);
   } finally {
@@ -320,6 +320,14 @@ async function getStarredPackages(): Promise<string[]> {
   }
 
   return JSON.parse(response.stdout).map(item => item['name']) || [];
+}
+
+function appendGithubUser(): string[] {
+  const githubUser = String(getConfig('githubUser')).trim();
+
+  return githubUser?.length
+    ? ['--user', githubUser]
+    : [];
 }
 
 export {
