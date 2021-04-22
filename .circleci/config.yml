@@ -18,9 +18,6 @@ commands:
       - run:
           name: Linting Source
           command: npm run lint
-      - run:
-          name: Running Tests
-          command: npm run test
 
 jobs:
   node-latest:
