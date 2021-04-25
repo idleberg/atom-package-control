@@ -26,6 +26,8 @@ export default {
   },
 
   async setPackages(data: unknown): Promise<void> {
+    Logger.log('Saving package cache');
+
     await set('packagesCache', data, customStore);
     await set('lastUpdate', new Date().toISOString(), customStore);
   },
