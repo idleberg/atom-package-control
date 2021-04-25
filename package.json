@@ -64,6 +64,9 @@
     {
       "name": "browse",
       "minimumVersion": "3.3.0"
+    },
+    {
+      "name": "busy-signal"
     }
   ],
   "dependencies": {
