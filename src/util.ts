@@ -9,6 +9,9 @@ import open from "open";
 import Signal from './busy-signal';
 import type PackageControl from '../types';
 
+// TODO: Remove in future version
+import 'core-js/modules/es.promise.all-settled'
+
 async function createList(action: string): Promise<void> {
   const allPackages: PackageControl.Metadata[] = await API.getPackages(action);
 
