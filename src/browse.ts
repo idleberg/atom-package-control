@@ -1,5 +1,5 @@
 import { Disposable } from 'atom';
-import { getConfig } from './config';
+import config from './config';
 import Logger from './log';
 
 export default {
@@ -20,7 +20,7 @@ export default {
   },
 
   async reveal(packageName: string): Promise<void> {
-    const listAction = getConfig('listAction');
+    const listAction = String(config.get('listAction'));
 
     if (listAction === 'packageView' || atom.packages.isBundledPackage(packageName)) {
       Logger.log(`Opening ${packageName} in package view`);

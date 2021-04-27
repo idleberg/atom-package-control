@@ -1,4 +1,4 @@
-import { getConfig } from './config';
+import config from './config';
 import { Panel } from 'atom';
 import numbro from 'numbro';
 import SelectList from 'atom-select-list';
@@ -38,7 +38,7 @@ async function selectListView(items: string[]): Promise<string | undefined> {
               : 'paintcan'
             : 'code';
 
-          const ui = getConfig('ui');
+          const ui = config.get('ui');
 
           const packageTextStyle = ui['packageTextStyle'] !== 'normal'
             ? `text-${ui['packageTextStyle']}`
@@ -86,7 +86,7 @@ async function selectListView(items: string[]): Promise<string | undefined> {
         emptyMessage: 'No packages found',
         filterKeyForItem: (item: PackageControl.Metadata) => item.name,
         items,
-        maxResults: getConfig('maxResults'),
+        maxResults: config.get('maxResults'),
         selectQuery: true
       });
 

@@ -1,5 +1,5 @@
 import { createStore, get, set } from 'idb-keyval';
-import { getConfig } from './config';
+import config from './config';
 import { sortByName, sortByCount } from './util';
 import Logger from './log';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
@@ -12,7 +12,7 @@ const customStore = createStore('package-control', '1.0.0');
 export default {
   async getPackages(action: string): Promise<PackageControl.Metadata[]> {
     const packages = await get('packagesCache', customStore);
-    const sortPackages = String(getConfig('sortPackages'));
+    const sortPackages = String(config.get('sortPackages'));
 
     switch (action) {
       case 'install':
@@ -36,7 +36,7 @@ export default {
     const lastUpdate = await get('lastUpdate', customStore) || "";
     const updateDifference = differenceInMinutes(new Date(), new Date(lastUpdate));
 
-    if (updateDifference < getConfig('updateInterval')) {
+    if (updateDifference < Number(config.get('updateInterval'))) {
       Logger.log(`Skipping package retrieval, last update was ${updateDifference} minutes ago`);
       return;
     }

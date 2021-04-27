@@ -1,5 +1,5 @@
 import { CompositeDisposable } from "atom";
-import { configSchema } from "./config";
+import config from "./config";
 import { createList, installAllStars, openWebsite, satisfyDependencies, updateAll } from "./util";
 import API from "./api";
 import Browse from './browse';
@@ -7,7 +7,7 @@ import Logger from "./log";
 import Signal from './busy-signal';
 
 const PackageControl = {
-  config: configSchema,
+  config: config.schema,
   subscriptions: new CompositeDisposable(),
 
   async activate(): Promise<void> {

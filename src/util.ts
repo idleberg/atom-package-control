@@ -1,4 +1,4 @@
-import { getConfig } from './config';
+import config from './config';
 import { install as installDependencies } from 'atom-package-deps';
 import { selectListView } from './view';
 import API from './api';
@@ -195,7 +195,7 @@ async function satisfyDependencies(): Promise<void> {
   Signal.add(signalMessage);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await (Promise as any).allSettled(enabledPackages.map(async enabledPackage => await installDependencies(enabledPackage, !getConfig('confirmSatisfyingDependencies'))));
+  await (Promise as any).allSettled(enabledPackages.map(async enabledPackage => await installDependencies(enabledPackage, !config.get('confirmSatisfyingDependencies'))));
 
   const endTime = new Date().getTime();
   const timeDiff: number = endTime - startTime;
@@ -326,7 +326,7 @@ async function getStarredPackages(): Promise<string[]> {
 }
 
 function appendGithubUser(): string[] {
-  const githubUser = String(getConfig('githubUser')).trim();
+  const githubUser = String(config.get('githubUser')).trim();
 
   return githubUser?.length
     ? ['--user', githubUser]
