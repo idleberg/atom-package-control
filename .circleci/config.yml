@@ -18,6 +18,9 @@ commands:
       - run:
           name: Linting Source
           command: npm run lint
+      - run:
+          name: Building Source
+          command: npm run build
 
 jobs:
   node-latest:
