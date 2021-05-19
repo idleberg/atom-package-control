@@ -76,7 +76,6 @@
     "cross-fetch": "^3.1.4",
     "date-fns": "^2.21.3",
     "idb-keyval": "^5.0.5",
-    "log-symbols": "^4.1.0",
     "numbro": "^2.3.2",
     "open": "^8.0.9",
     "pako": "^2.0.3"
