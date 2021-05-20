@@ -4,7 +4,7 @@
 [![apm](https://flat.badgen.net/apm/v/package-control)](https://atom.io/packages/package-control)
 [![apm](https://flat.badgen.net/apm/dl/package-control)](https://atom.io/packages/package-control)
 [![CircleCI](https://flat.badgen.net/circleci/github/idleberg/atom-package-control)](https://circleci.com/gh/idleberg/atom-package-control)
-[![David](https://flat.badgen.net/david/dep/idleberg/atom-package-control)](https://david-dm.org/idleberg/atom-package-control)
+[![David](https://flat.badgen.net/david/dev/idleberg/atom-package-control)](https://david-dm.org/idleberg/atom-package-control?type=dev)
 
 Manage Atom packages from the command palette
 
