@@ -1,9 +1,9 @@
 import { createStore, get, set } from 'idb-keyval';
-import config from './config';
 import { sortByName, sortByCount } from './util';
-import Logger from './log';
+import config from './config';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import fetch from 'cross-fetch';
+import Logger from './log';
 import pako from 'pako';
 import type PackageControl from '../types';
 

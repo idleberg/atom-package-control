@@ -1,5 +1,6 @@
 import config from './config';
 import { Panel } from 'atom';
+import { normalizeVersion } from './util';
 import numbro from 'numbro';
 import SelectList from 'atom-select-list';
 import type PackageControl from '../types';
@@ -23,7 +24,7 @@ async function selectListView(items: string[]): Promise<string | undefined> {
           const li = document.createElement('li');
 
           const version = item.version
-            ? `v${item.version}`
+            ? normalizeVersion(item.version)
             : '';
           const downloads = item.downloads
             ? `${numbro(item.downloads).format(numbroOptions)}`
