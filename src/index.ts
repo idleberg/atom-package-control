@@ -1,8 +1,8 @@
 import { CompositeDisposable } from "atom";
-import config from "./config";
 import { createList, installAllStars, openWebsite, satisfyDependencies, updateAll } from "./util";
 import API from "./api";
 import Browse from './browse';
+import config from "./config";
 import Logger from "./log";
 import Signal from './busy-signal';
 
