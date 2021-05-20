@@ -333,7 +333,7 @@ function appendGithubUser(): string[] {
     : [];
 }
 
-function normalizeVersion(version) {
+function normalizeVersion(version: string): string {
   return version.startsWith('v')
     ? version
     : `v${version}`;
