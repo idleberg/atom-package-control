@@ -301,7 +301,7 @@ async function getOutdatedPackages(allPackages: unknown[]): Promise<string[]> {
         name,
         stars: meta['stars'] || 0,
         theme: meta['theme'] || undefined,
-        version: `${version} &#8594; ${latestVersion}`
+        version: `${normalizeVersion(version)} &#8594; ${normalizeVersion(latestVersion)}`
       };
     }) || [];
 }
@@ -333,9 +333,16 @@ function appendGithubUser(): string[] {
     : [];
 }
 
+function normalizeVersion(version) {
+  return version.startsWith('v')
+    ? version
+    : `v${version}`;
+}
+
 export {
   createList,
   installAllStars,
+  normalizeVersion,
   openWebsite,
   satisfyDependencies,
   sortByName,
