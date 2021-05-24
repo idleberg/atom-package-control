@@ -67,7 +67,7 @@ This packages exposes several commands to the [command palette](https://flight-m
 - *Package Control: Install Starred Package*
 - *Package Control: Install All Starred Packages*
 
-Some of the default behaviour of these commands can be tweaked in the package settings!
+Some of the default behaviour of these commands can be tweaked in the [package settings](https://flight-manual.atom.io/using-atom/sections/atom-packages/#package-settings)!
 
 ## License
 
