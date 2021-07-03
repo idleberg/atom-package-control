@@ -108,11 +108,6 @@
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.ts": "eslint --cache --fix",
     "*.json": "jsonlint --quiet",
