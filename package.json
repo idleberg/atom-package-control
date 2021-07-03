@@ -12,6 +12,7 @@
     "lint:code": "eslint --ignore-path .gitignore --no-error-on-unmatched-pattern ./src/**/*.ts",
     "lint:styles": "echo \"Nothing to lint\"",
     "lint": "npm-run-all --parallel lint:*",
+    "prepare": "is-ci || husky install",
     "prepublishOnly": "npm run build",
     "start": "cross-env ESBUILD_WATCH=true node ./tools/build.mjs",
     "test": "npm run lint"
@@ -69,7 +70,6 @@
       "name": "busy-signal"
     }
   ],
-  "dependencies": {},
   "devDependencies": {
     "@atxm/developer-console": "^0.5.0",
     "@babel/core": "^7.14.3",
@@ -92,8 +92,9 @@
     "eslint-plugin-json": "^3.0.0",
     "eslint-plugin-prettierx": "^0.18.0",
     "hash-wasm": "^4.8.0",
-    "husky": ">=4.3 <5",
+    "husky": "^7.0.0",
     "idb-keyval": "^5.0.5",
+    "is-ci": "^3.0.0",
     "jsonlint": "^1.6.3",
     "lint-staged": "^11.0.0",
     "log-symbols": "^5.0.0",
