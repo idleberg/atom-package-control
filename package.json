@@ -91,6 +91,7 @@
     "eslint-config-eslint": "^7.0.0",
     "eslint-plugin-json": "^3.0.0",
     "eslint-plugin-prettierx": "^0.18.0",
+    "hash-wasm": "^4.8.0",
     "husky": ">=4.3 <5",
     "idb-keyval": "^5.0.5",
     "jsonlint": "^1.6.3",
