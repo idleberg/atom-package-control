@@ -69,6 +69,7 @@
       "name": "busy-signal"
     }
   ],
+  "dependencies": {},
   "devDependencies": {
     "@atxm/developer-console": "^0.5.0",
     "@babel/core": "^7.14.3",
@@ -91,7 +92,7 @@
     "eslint-plugin-json": "^3.0.0",
     "eslint-plugin-prettierx": "^0.18.0",
     "hash-wasm": "^4.8.0",
-    "husky": "^7.0.0",
+    "husky": ">=4.3 <5",
     "idb-keyval": "^5.0.5",
     "jsonlint": "^1.6.3",
     "lint-staged": "^11.0.0",
@@ -105,6 +106,11 @@
     "stylelint": "^13.13.1",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.ts": "eslint --cache --fix",
