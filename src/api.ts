@@ -6,6 +6,7 @@ import fetch from 'cross-fetch';
 import Logger from './log';
 import pako from 'pako';
 import type PackageControl from '../types';
+import { md5, sha1 } from 'hash-wasm'
 
 const customStore = createStore('package-control', '1.0.0');
 
@@ -25,11 +26,22 @@ export default {
     }
   },
 
-  async setPackages(data: unknown): Promise<void> {
-    Logger.log('Saving package cache');
+  async setPackages(data: PackageControl.Metadata): Promise<void> {
+    const lastUpdate = new Date().toISOString();
+    const checksums = {
+      md5: await md5(JSON.stringify(data)),
+      sha1: await sha1(JSON.stringify(data))
+    }
+
+    Logger.log('Saving package cache', {
+      length: data.length,
+      lastUpdate,
+      checksums
+    });
 
     await set('packagesCache', data, customStore);
-    await set('lastUpdate', new Date().toISOString(), customStore);
+    await set('lastUpdate', lastUpdate, customStore);
+    await set('checksums', checksums, customStore);
   },
 
   async fetchPackages(): Promise<void> {
