@@ -16,7 +16,7 @@ const PackageControl = {
   async activate(): Promise<void> {
     Logger.log('Activating package');
 
-    installDependencies(name);
+    await installDependencies(name);
     await API.fetchPackages();
 
     // Register commands
