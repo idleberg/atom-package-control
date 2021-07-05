@@ -1,12 +1,12 @@
 import { createStore, get, set } from 'idb-keyval';
+import { md5, sha1 } from 'hash-wasm'
 import { sortByName, sortByCount } from './util';
 import config from './config';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
-import fetch from 'cross-fetch';
+import Fetch from './fetch';
 import Logger from './log';
 import pako from 'pako';
 import type PackageControl from '../types';
-import { md5, sha1 } from 'hash-wasm'
 
 const customStore = createStore('package-control', '1.0.0');
 
@@ -54,7 +54,7 @@ export default {
     }
 
     Logger.log('Downloading packages list');
-    const response = await fetch('https://idleberg.github.io/atom-package-control-api/all.json.gz');
+    const response = await Fetch.getPackageData();
 
     if (response.ok) {
       const uintArray = pako.ungzip(await response.arrayBuffer());
