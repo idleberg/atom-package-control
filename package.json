@@ -58,6 +58,11 @@
       "versions": {
         "1.0.0": "consumeSignal"
       }
+    },
+    "service-fetch": {
+      "versions": {
+        "0.1.0": "consumeFetch"
+      }
     }
   },
   "package-deps": [
@@ -67,6 +72,10 @@
     },
     {
       "name": "busy-signal"
+    },
+    {
+      "name": "service-fetch",
+      "minimumVersion": "0.1.2"
     }
   ],
   "dependencies": {},

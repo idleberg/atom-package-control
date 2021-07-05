@@ -1,7 +1,10 @@
 import { CompositeDisposable } from "atom";
 import { createList, installAllStars, openWebsite, satisfyDependencies, updateAll } from "./util";
+import { install as installDependencies } from 'atom-package-deps';
+import { name } from '../package.json';
 import API from "./api";
 import Browse from './browse';
+import Fetch from './fetch';
 import config from "./config";
 import Logger from "./log";
 import Signal from './busy-signal';
@@ -13,6 +16,7 @@ const PackageControl = {
   async activate(): Promise<void> {
     Logger.log('Activating package');
 
+    installDependencies(name);
     await API.fetchPackages();
 
     // Register commands
@@ -90,6 +94,12 @@ const PackageControl = {
     Logger.log('Consuming Browse service');
 
     Browse.consumer(browse);
+  },
+
+  consumeFetch(fetch: unknown): void {
+    Logger.log('Consuming Fetch service');
+
+    Fetch.consumer(fetch);
   },
 
   consumeSignal(registry: unknown): void {
