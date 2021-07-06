@@ -61,7 +61,7 @@
     },
     "service-fetch": {
       "versions": {
-        "0.1.0": "consumeFetch"
+        "0.2.0": "consumeFetch"
       }
     }
   },
@@ -75,7 +75,7 @@
     },
     {
       "name": "service-fetch",
-      "minimumVersion": "0.1.2"
+      "minimumVersion": "0.2.0"
     }
   ],
   "dependencies": {},
