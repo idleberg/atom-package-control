@@ -12,10 +12,10 @@ export default {
     });
   },
 
-  async getPackageData(): Promise<any> {
+  async getPackageData(): Promise<Response> {
     return await this.fetch('https://idleberg.github.io/atom-package-control-api/all.json.gz', {
       headers: {
-        'Content-Type': 'application/octet-stream'
+        'Accept': 'application/octet-stream'
       }
     });
   }
