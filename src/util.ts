@@ -1,5 +1,4 @@
 import config from './config';
-import { install as installDependencies } from 'atom-package-deps';
 import { selectListView } from './view';
 import API from './api';
 import Browse from './browse';
@@ -193,6 +192,8 @@ async function satisfyDependencies(): Promise<void> {
 
   Logger.log(`${wording(action).continous} all packages dependencies`);
   Signal.add(signalMessage);
+
+  const installDependencies = (await import('atom-package-deps')).install;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (Promise as any).allSettled(enabledPackages.map(async enabledPackage => await installDependencies(enabledPackage, !config.get('confirmSatisfyingDependencies'))));

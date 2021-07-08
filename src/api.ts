@@ -1,17 +1,17 @@
-import { createStore, get, set } from 'idb-keyval';
+import { createStore } from 'idb-keyval';
 import { md5, sha1 } from 'hash-wasm'
 import { sortByName, sortByCount } from './util';
 import config from './config';
-import differenceInMinutes from 'date-fns/differenceInMinutes';
 import Fetch from './fetch';
 import Logger from './log';
-import pako from 'pako';
 import type PackageControl from '../types';
 
 const customStore = createStore('package-control', '1.0.0');
 
 export default {
   async getPackages(action: string): Promise<PackageControl.Metadata[]> {
+    const { get } = (await import('idb-keyval'));
+
     const packages = await get('packagesCache', customStore);
     const sortPackages = String(config.get('sortPackages'));
 
@@ -39,12 +39,17 @@ export default {
       checksums
     });
 
+    const { set } = (await import('idb-keyval'));
+
     await set('packagesCache', data, customStore);
     await set('lastUpdate', lastUpdate, customStore);
     await set('checksums', checksums, customStore);
   },
 
   async fetchPackages(): Promise<void> {
+    const { differenceInMinutes } = await import('date-fns');
+    const { get } = (await import('idb-keyval'));
+
     const lastUpdate = await get('lastUpdate', customStore) || "";
     const updateDifference = differenceInMinutes(new Date(), new Date(lastUpdate));
 
@@ -57,6 +62,8 @@ export default {
     const response = await Fetch.getPackageData();
 
     if (response.ok) {
+      const pako = await import('pako');
+
       const uintArray = pako.ungzip(await response.arrayBuffer());
       const data = JSON.parse(new TextDecoder().decode(uintArray));
 

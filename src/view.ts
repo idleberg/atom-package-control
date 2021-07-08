@@ -1,8 +1,6 @@
 import config from './config';
 import { Panel } from 'atom';
 import { normalizeVersion } from './util';
-import numbro from 'numbro';
-import SelectList from 'atom-select-list';
 import type PackageControl from '../types';
 
 const numbroOptions = {
@@ -15,8 +13,12 @@ async function selectListView(items: string[]): Promise<string | undefined> {
   let panel: Panel;
   const currentFocus = document.activeElement as HTMLElement | void;
 
+  const SelectList = await import('atom-select-list');
+  const numbro = await import('numbro');
+
   try {
     return await new Promise<string>((resolve, reject) => {
+
       const select = new SelectList({
         didCancelSelection: () => reject('cancelled'),
         didConfirmSelection: (item: PackageControl.Metadata) => resolve(item.name),
