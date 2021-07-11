@@ -18,8 +18,10 @@ async function createList(action: string): Promise<void> {
 
   let selectionPackages, starredPackages;
   const installedPackages = atom.packages.getAvailablePackageNames();
-  const enabledPackages = atom.packages.getLoadedPackages().map(item => item.name);
-  const disabledPackages = installedPackages.filter(item => !enabledPackages.includes(item));
+  const enabledPackages = installedPackages.filter(item => !atom.packages.isPackageDisabled(item));
+  const disabledPackages = installedPackages.filter(item => atom.packages.isPackageDisabled(item));
+
+  console.log({installedPackages, enabledPackages, disabledPackages});
 
   if (action === 'stars') {
     starredPackages = await getStarredPackages();
