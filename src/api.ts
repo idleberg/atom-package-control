@@ -10,7 +10,12 @@ const customStore = createStore('package-control', '1.0.0');
 async function getPackages(action: string): Promise<PackageControl.Metadata[]> {
   const { get } = (await import('idb-keyval'));
 
-  const packages = await get('packagesCache', customStore);
+  const packages = await get('packagesCache', customStore) || {};
+
+  if (!Object.keys(packages).length) {
+    await fetchPackages();
+    return await getPackages(action);
+  }
   const sortPackages = String(config.get('sortPackages'));
 
   switch (action) {
@@ -45,7 +50,7 @@ async function fetchPackages(): Promise<void> {
   const { differenceInMinutes } = await import('date-fns');
   const { get } = (await import('idb-keyval'));
 
-  const lastUpdate = await get('lastUpdate', customStore) || "";
+  const lastUpdate = await get('lastUpdate', customStore) || 0;
   const updateDifference = differenceInMinutes(new Date(), new Date(lastUpdate));
 
   if (updateDifference < Number(config.get('updateInterval'))) {
