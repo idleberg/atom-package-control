@@ -47,7 +47,7 @@ $ git clone https://github.com/idleberg/atom-package-control package-control
 Install dependencies:
 
 ```bash
-cd package-control && npm install
+$ cd package-control && npm install
 ```
 
 ## Usage
