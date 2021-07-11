@@ -31,7 +31,7 @@ async function setPackages(data: PackageControl.Metadata, checksums: PackageCont
   Logger.log('Saving package cache', {
     length: data.length,
     lastUpdate,
-    checksums
+    checksums: checksums || {}
   });
 
   const { set } = (await import('idb-keyval'));
@@ -61,8 +61,9 @@ async function fetchPackages(): Promise<void> {
 
     const uintArray = pako.ungzip(await response.arrayBuffer());
     const data = JSON.parse(new TextDecoder().decode(uintArray));
+    const checksums = response['checksums'] || {};
 
-    await setPackages(data, response['checksums']);
+    await setPackages(data, checksums);
   }
 }
 
