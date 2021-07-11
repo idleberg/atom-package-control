@@ -30,7 +30,6 @@ async function getPackages(action: string): Promise<PackageControl.Metadata[]> {
 }
 
 async function setPackages(data: PackageControl.Metadata, checksums: PackageControl.Checksums): Promise<void> {
-  console.log({data});
   const lastUpdate = new Date().toISOString();
 
   Logger.log('Saving package cache', {
