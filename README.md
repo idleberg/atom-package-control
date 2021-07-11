@@ -50,6 +50,12 @@ Install dependencies:
 $ cd package-control && npm install
 ```
 
+Build source:
+
+```bash
+$ npm run build
+```
+
 ## Usage
 
 This packages exposes several commands to the [command palette](https://flight-manual.atom.io/getting-started/sections/atom-basics/#command-palette):
