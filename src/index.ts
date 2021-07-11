@@ -1,6 +1,6 @@
 import { CompositeDisposable } from "atom";
 import { name } from '../package.json';
-import API from "./api";
+
 import Browse from './browse';
 import Fetch from './fetch';
 import config from "./config";
@@ -16,7 +16,9 @@ const PackageControl = {
 
     const installDependencies = (await import('atom-package-deps')).install;
     await installDependencies(name);
-    await API.fetchPackages();
+
+    const { fetchPackages } = await import('./api');
+    await fetchPackages();
 
     // Register commands
     this.subscriptions.add(

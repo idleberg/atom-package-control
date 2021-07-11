@@ -1,6 +1,6 @@
 import config from './config';
 import { selectListView } from './view';
-import API from './api';
+import { getPackages } from './api';
 import Browse from './browse';
 import execa from 'execa';
 import Logger from './log';
@@ -12,7 +12,7 @@ import type PackageControl from '../types';
 import 'core-js/modules/es.promise.all-settled'
 
 async function createList(action: string): Promise<void> {
-  const allPackages: PackageControl.Metadata[] = await API.getPackages(action);
+  const allPackages: PackageControl.Metadata[] = await getPackages(action);
 
   if (allPackages === undefined) return;
 

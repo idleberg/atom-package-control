@@ -2,6 +2,8 @@ import config from './config';
 import { Panel } from 'atom';
 import { normalizeVersion } from './util';
 import type PackageControl from '../types';
+import SelectList from 'atom-select-list';
+import numbro from 'numbro';
 
 const numbroOptions = {
   average: true,
@@ -13,9 +15,6 @@ async function selectListView(items: string[]): Promise<string | undefined> {
   let panel: Panel;
   const currentFocus = document.activeElement as HTMLElement | void;
 
-  const SelectList = await import('atom-select-list');
-  const numbro = await import('numbro');
-
   try {
     return await new Promise<string>((resolve, reject) => {
 
@@ -26,11 +25,13 @@ async function selectListView(items: string[]): Promise<string | undefined> {
           const li = document.createElement('li');
 
           const version = item.version
-            ? normalizeVersion(item.version)
-            : '';
+          ? normalizeVersion(item.version)
+          : '';
+
           const downloads = item.downloads
             ? `${numbro(item.downloads).format(numbroOptions)}`
             : '';
+
           const stars = item.stars
             ? `${numbro(item.stars).format(numbroOptions)}`
             : '';
@@ -69,8 +70,7 @@ async function selectListView(items: string[]): Promise<string | undefined> {
                 <span class="icon icon-cloud-download">${downloads}</span>
                 <span class="icon icon-star">${stars}</span>
               </div>
-            `
-            : '';
+            ` : '';
 
           li.innerHTML = `
             <div class="package-control block">
@@ -89,7 +89,7 @@ async function selectListView(items: string[]): Promise<string | undefined> {
         emptyMessage: 'No packages found',
         filterKeyForItem: (item: PackageControl.Metadata) => item.name,
         items,
-        maxResults: config.get('maxResults'),
+        maxResults: Number(config.get('maxResults')),
         selectQuery: true
       });
 

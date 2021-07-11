@@ -1,4 +1,11 @@
 declare namespace PackageControl {
+  interface Checksums {
+    md: string;
+    sha1: string;
+    sha256: string;
+    sha512: string;
+  }
+
   interface Metadata extends Array<T> {
     name: string;
     description?: string;
