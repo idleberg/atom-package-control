@@ -65,7 +65,7 @@ async function createList(action: string): Promise<void> {
   try {
     selection = await selectListView(selectionPackages);
   } catch (err) {
-    Logger.log(`Cancelled selection`);
+    Logger.log(`Closed list view:`, err);
     return;
   }
 
