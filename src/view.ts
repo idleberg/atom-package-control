@@ -3,10 +3,8 @@ import { Panel } from 'atom';
 import { normalizeVersion } from './util';
 import type PackageControl from '../types';
 
-const numbroOptions = {
-  average: true,
-  mantissa: 1,
-  optionalMantissa: true
+const roundingOptions = {
+  round: true
 };
 
 async function selectListView(items: string[]): Promise<string | undefined> {
@@ -14,7 +12,7 @@ async function selectListView(items: string[]): Promise<string | undefined> {
   const currentFocus = document.activeElement as HTMLElement | void;
 
   const SelectList = (await import('atom-select-list')).default;
-  const numbro = (await import('numbro')).default;
+  const approximateNumber = (await import('approximate-number')).default;
 
   try {
     return await new Promise<string>((resolve, reject) => {
@@ -30,11 +28,11 @@ async function selectListView(items: string[]): Promise<string | undefined> {
           : '';
 
           const downloads = item.downloads
-            ? `${numbro(item.downloads).format(numbroOptions)}`
+            ? `${approximateNumber(item.downloads, roundingOptions)}`
             : '';
 
           const stars = item.stars
-            ? `${numbro(item.stars).format(numbroOptions)}`
+            ? `${approximateNumber(item.stars, roundingOptions)}`
             : '';
 
           const icon = item.theme
