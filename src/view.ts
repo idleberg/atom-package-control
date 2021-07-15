@@ -2,8 +2,6 @@ import config from './config';
 import { Panel } from 'atom';
 import { normalizeVersion } from './util';
 import type PackageControl from '../types';
-import SelectList from 'atom-select-list';
-import numbro from 'numbro';
 
 const numbroOptions = {
   average: true,
@@ -14,6 +12,9 @@ const numbroOptions = {
 async function selectListView(items: string[]): Promise<string | undefined> {
   let panel: Panel;
   const currentFocus = document.activeElement as HTMLElement | void;
+
+  const SelectList = (await import('atom-select-list')).default;
+  const numbro = (await import('numbro')).default;
 
   try {
     return await new Promise<string>((resolve, reject) => {
