@@ -13,7 +13,7 @@ export default {
   },
 
   async getPackageData(): Promise<Response> {
-    return await this.fetch('https://idleberg.github.io/atom-package-control-api/all.json.gz', {
+    return await this.fetch('https://atom-packages.github.io/data/all.json.gz', {
       headers: {
         'Accept': 'application/octet-stream'
       }
