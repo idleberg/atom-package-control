@@ -15,6 +15,7 @@ module.exports = {
   external: [
     // Atom
     'atom',
+    'electron',
 
     // Node
     'assert',
