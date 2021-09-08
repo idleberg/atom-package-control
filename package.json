@@ -123,5 +123,10 @@
   "lint-staged": {
     "*.(json|ts)": "eslint --cache --fix",
     "*.{md,yml}": "prettier --write"
+  },
+  "volta": {
+    "node": "14.17.6",
+    "yarn": "1.22.11",
+    "npm": "6.14.15"
   }
 }
