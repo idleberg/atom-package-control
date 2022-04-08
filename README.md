@@ -65,13 +65,15 @@ This packages exposes several commands to the [command palette](https://flight-m
 - _Package Control: Enable Package_
 - _Package Control: Disable Package_
 - _Package Control: List Packages_
-- _Package Control: Discover Packages_
-- _Package Control: Discover Themes_
+- _Package Control: Discover Packages_\*
+- _Package Control: Discover Themes_\*
 - _Package Control: Satisfy Dependencies_
 - _Package Control: Update Package_
-- _Package Control: Update All Packages_
-- _Package Control: Install Starred Package_
-- _Package Control: Install All Starred Packages_
+- _Package Control: Update All Packages_\*
+- _Package Control: Install Starred Package_\*
+- _Package Control: Install All Starred Packages_\*
+
+* denotes commands exclusive to this package
 
 Some of the default behaviour of these commands can be tweaked in the [package settings](https://flight-manual.atom.io/using-atom/sections/atom-packages/#package-settings)!
 
