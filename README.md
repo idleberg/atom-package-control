@@ -73,7 +73,7 @@ This packages exposes several commands to the [command palette](https://flight-m
 - _Package Control: Install Starred Package_\*
 - _Package Control: Install All Starred Packages_\*
 
-\* denotes commands exclusive to this package
+<small>\* denotes commands exclusive to this package</small>
 
 Some of the default behaviour of these commands can be tweaked in the [package settings](https://flight-manual.atom.io/using-atom/sections/atom-packages/#package-settings)!
 
