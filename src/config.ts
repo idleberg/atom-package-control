@@ -178,6 +178,7 @@ export default {
 
     try {
       atom.config.set(`${name}.${newKey}`, atom.config.get(`${name}.${oldKey}`));
+      /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     } catch (error) {
       atom.notifications.addWarning(`Failed to migrate configuration, see console for details`);
 

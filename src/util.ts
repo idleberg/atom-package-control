@@ -195,7 +195,7 @@ async function satisfyDependencies(): Promise<void> {
 
   const installDependencies = (await import('atom-package-deps')).install;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   await (Promise as any).allSettled(enabledPackages.map(async enabledPackage => await installDependencies(enabledPackage, !config.get('confirmSatisfyingDependencies'))));
 
   const endTime = new Date().getTime();
@@ -266,7 +266,7 @@ function wording(action: string): PackageControl.Verbs {
       };
 
     default:
-      throw Error(`Unsupported action: ${action}`);
+      throw new Error(`Unsupported action: ${action}`);
   }
 }
 
@@ -286,7 +286,7 @@ async function getOutdatedPackages(allPackages: unknown[]): Promise<string[]> {
   try {
     response = await execa(apmPath, ['update', '--compatible', '--json', '--list']);
   } catch (err) {
-    throw Error(err.message);
+    throw new Error(err.message);
   } finally {
     Signal.remove(signalMessage);
   }
@@ -318,7 +318,7 @@ async function getStarredPackages(): Promise<string[]> {
   try {
     response = await execa(apmPath, ['stars', '--json', ...appendGithubUser()]);
   } catch (err) {
-    throw Error(err.message);
+    throw new Error(err.message);
   } finally {
     Signal.remove(signalMessage);
   }
