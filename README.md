@@ -1,20 +1,19 @@
 # package-control
 
-[![apm](https://flat.badgen.net/apm/license/package-control)](https://atom.io/packages/package-control)
-[![apm](https://flat.badgen.net/apm/v/package-control)](https://atom.io/packages/package-control)
-[![apm](https://flat.badgen.net/apm/dl/package-control)](https://atom.io/packages/package-control)
-[![CI](https://img.shields.io/github/workflow/status/idleberg/atom-package-control/CI?style=flat-square)](https://github.com/idleberg/atom-package-control/actions)
-[![David](https://flat.badgen.net/david/dev/idleberg/atom-package-control)](https://david-dm.org/idleberg/atom-package-control?type=dev)
+[![License](https://img.shields.io/github/license/idleberg/atom-package-control?color=blue&style=for-the-badge)](https://github.com/idleberg/atom-package-control/blob/master/LICENSE)
+[![Release](https://img.shields.io/github/v/release/idleberg/atom-package-control?style=for-the-badge)](https://github.com/idleberg/atom-package-control/releases)
+[![Downloads](https://img.shields.io/pulsar/dt/package-control?style=for-the-badge&color=slateblue)](https://web.pulsar-edit.dev/packages/package-control)
+[![CI](https://img.shields.io/github/actions/workflow/status/idleberg/atom-package-control/default.yml?style=for-the-badge)](https://github.com/idleberg/atom-package-control/actions)
 
-Manage Atom packages from the command palette
+Manage packages from the command palette
 
 ## Installation
 
 ### apm
 
-Install `package-control` from Atom [install view](atom://settings-view/show-package?package=package-control) or use the command-line equivalent:
+Install `package-control` from the editor's [Package Manager](http://flight-manual.atom-editor.cc/using-atom/sections/atom-packages/) or the command-line equivalent:
 
-`$ apm install package-control`
+`$ ppm install package-control || apm install package-control`
 
 ### Using Git
 
@@ -47,18 +46,19 @@ $ git clone https://github.com/idleberg/atom-package-control package-control
 Install dependencies:
 
 ```bash
-$ cd package-control && npm install
+$ cd package-control
+$ ppm install || apm install
 ```
 
 Build source:
 
 ```bash
-$ npm run build
+$ ppm run build || apm run build
 ```
 
 ## Usage
 
-This packages exposes several commands to the [command palette](https://flight-manual.atom.io/getting-started/sections/atom-basics/#command-palette):
+This packages exposes several commands to the [command palette](https://flight-manual.atom-editor.cc/getting-started/sections/atom-basics/#command-palette):
 
 - _Package Control: Install Package_
 - _Package Control: Remove Package_
@@ -75,7 +75,7 @@ This packages exposes several commands to the [command palette](https://flight-m
 
 \* denotes commands not available in Sublime Text's Package Control
 
-Some of the default behaviour of these commands can be tweaked in the [package settings](https://flight-manual.atom.io/using-atom/sections/atom-packages/#package-settings)!
+Some of the default behaviour of these commands can be tweaked in the [package settings](https://flight-manual.atom-editor.cc/using-atom/sections/atom-packages/#package-settings)!
 
 ## License
 
