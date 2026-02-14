@@ -51,7 +51,7 @@
   "consumedServices": {
     "browse": {
       "versions": {
-        "1.0.0": "consumeBrowse"
+        "2.0.0": "consumeBrowse"
       }
     },
     "busy-signal": {
@@ -68,7 +68,7 @@
   "package-deps": [
     {
       "name": "browse",
-      "minimumVersion": "3.3.0"
+      "minimumVersion": "4.0.0"
     },
     {
       "name": "busy-signal"
